@@ -13,8 +13,8 @@ export const chatbotQuestions: ChatbotQuestion[] = [
   },
   {
     id: 'q3',
-    question: 'What benefits do I get from completing missions?',
-    answer: 'Completing missions earns you points and unlocks badges that track your progress. More importantly, each mission helps you take meaningful steps toward your financial goals. The profile mission personalizes your experience, the product exploration helps you find tools that match your needs, and the application process gets you started with your chosen solutions.',
+    question: 'What benefits do I get from exploring recommended products?',
+    answer: 'Exploring recommended products earns you points and unlocks badges that track your progress. More importantly, our personalized recommendations help you find financial tools that match your unique needs and goals. The profile quiz personalizes your experience, product exploration helps you discover suitable solutions, and the application process gets you started with your chosen products.',
   },
   {
     id: 'q4',
@@ -28,7 +28,7 @@ export const chatbotQuestions: ChatbotQuestion[] = [
   },
   {
     id: 'q6',
-    question: 'What happens after I complete all missions?',
-    answer: 'After completing all missions, you\'ll receive your final badge and have access to your personalized financial dashboard. From there, you can manage your new products, track your progress, and receive ongoing personalized advice. We\'ll also provide regular check-ins to ensure your financial plan continues to meet your evolving needs.',
+    question: 'What happens after I complete my financial journey?',
+    answer: 'After completing your personalized financial journey, you\'ll receive your final badge and have access to your personalized financial dashboard. From there, you can manage your new products, track your progress, and receive ongoing personalized advice. We\'ll also provide regular check-ins to ensure your financial plan continues to meet your evolving needs.',
   },
 ];

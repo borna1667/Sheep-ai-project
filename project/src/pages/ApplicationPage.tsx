@@ -9,7 +9,7 @@ import { ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
 
 const ApplicationPage: React.FC = () => {
   const navigate = useNavigate();
-  const { userProfile, completeMission } = useGame();
+  const { userProfile, markApplicationSubmitted } = useGame();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [isComplete, setIsComplete] = useState(false);
@@ -54,9 +54,9 @@ const ApplicationPage: React.FC = () => {
         origin: { y: 0.6 },
       });
       
-      // Complete mission
+      // Complete application process
       setTimeout(() => {
-        completeMission('submit-application');
+        markApplicationSubmitted();
       }, 1000);
     }
   };
@@ -82,7 +82,7 @@ const ApplicationPage: React.FC = () => {
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Application Form</h1>
         <p className="mt-2 text-lg text-gray-600">
-          Complete your application to unlock the final mission.
+          Complete your application to unlock the final achievement.
         </p>
       </div>
       

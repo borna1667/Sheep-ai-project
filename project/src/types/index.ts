@@ -32,14 +32,14 @@ export interface Product {
   calculatorType?: 'cashback' | 'savings' | 'investment';
 }
 
-// Mission types
-export interface Mission {
+// Recommended Product Section types
+export interface RecommendedSection {
   id: string;
-  name: string;
+  title: string;
   description: string;
-  isCompleted: boolean;
-  points: number;
-  badgeId?: string;
+  productIds: string[];
+  forTypes: UserProfileType[];
+  priority: number;
 }
 
 // Badge types
@@ -73,7 +73,6 @@ export interface ApplicationStep {
 
 // Progress types
 export interface UserProgress {
-  completedMissions: string[];
   unlockedBadges: string[];
   points: number;
   level: number;

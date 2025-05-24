@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useGame } from '../context/GameContext';
-import MissionCard from '../components/MissionCard';
+import RecommendedSectionCard from '../components/RecommendedSectionCard';
 import BadgeItem from '../components/BadgeItem';
 import { TrendingUp, Award, BadgeCheck, LineChart } from 'lucide-react';
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
-  const { userProfile, missions, badges, progress } = useGame();
+  const { userProfile, recommendedSections, badges, progress } = useGame();
   
   useEffect(() => {
     if (!userProfile) {
@@ -48,7 +48,11 @@ const DashboardPage: React.FC = () => {
     }
   };
   
-  const progressPercentage = (progress.completedMissions.length / missions.length) * 100;
+  const progressPercentage = Math.min(
+    ((progress.quizCompleted ? 33 : 0) + 
+     (progress.productExplored ? 33 : 0) + 
+     (progress.applicationSubmitted ? 34 : 0)), 100
+  );
   
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
@@ -102,30 +106,20 @@ const DashboardPage: React.FC = () => {
       
       <div className="mb-12">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">Your Missions</h2>
+          <h2 className="text-xl font-semibold text-gray-900">Recommended for You</h2>
+          <div className="text-sm text-gray-500">
+            Based on your {userProfile.type} profile
+          </div>
         </div>
         
-        <div className="grid gap-6 md:grid-cols-3">
-          {missions.map((mission, index) => {
-            // Determine if the mission is unlocked
-            let isUnlocked = false;
-            if (mission.id === 'complete-profile') {
-              isUnlocked = true;
-            } else if (mission.id === 'explore-product') {
-              isUnlocked = progress.quizCompleted;
-            } else if (mission.id === 'submit-application') {
-              isUnlocked = progress.productExplored;
-            }
-            
-            return (
-              <MissionCard
-                key={mission.id}
-                mission={mission}
-                index={index}
-                isUnlocked={isUnlocked}
-              />
-            );
-          })}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {recommendedSections.map((section, index) => (
+            <RecommendedSectionCard
+              key={section.id}
+              section={section}
+              index={index}
+            />
+          ))}
         </div>
       </div>
       

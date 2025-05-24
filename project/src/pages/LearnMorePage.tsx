@@ -20,10 +20,10 @@ const LearnMorePage: React.FC = () => {
       content: 'We identify three main financial personalities: Spenders focus on experiences and enjoying life now, Savers prioritize security and future stability, and Builders concentrate on growing wealth and investments. Understanding your type helps us recommend the most suitable financial products and strategies.',
     },
     {
-      id: 'missions',
-      title: 'Missions & Rewards',
+      id: 'recommendations',
+      title: 'Smart Recommendations',
       icon: <Trophy className="h-6 w-6 text-primary-500" />,
-      content: 'Complete missions to earn points and unlock badges. Each mission is designed to help you take meaningful steps toward your financial goals - from creating your profile to exploring products and completing applications. Track your progress on your personalized dashboard.',
+      content: 'Get personalized product recommendations based on your financial personality. Our smart algorithm analyzes your preferences and goals to suggest the most suitable financial products and services for your unique situation.',
     },
     {
       id: 'products',
@@ -41,7 +41,7 @@ const LearnMorePage: React.FC = () => {
       id: 'growth',
       title: 'Continuous Growth',
       icon: <TrendingUp className="h-6 w-6 text-primary-500" />,
-      content: 'Your financial journey doesn\'t end after completing all missions. We provide ongoing resources, educational content, and personalized recommendations to help you continue growing financially. Check back regularly for new features and opportunities to improve your financial wellness.',
+      content: 'Your financial journey doesn\'t end after exploring all our recommendations. We provide ongoing resources, educational content, and personalized recommendations to help you continue growing financially. Check back regularly for new features and opportunities to improve your financial wellness.',
     },
   ];
 
@@ -61,7 +61,7 @@ const LearnMorePage: React.FC = () => {
           transition={{ delay: 0.2 }}
           className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto"
         >
-          Discover how our platform helps you navigate your financial journey through personalized experiences and engaging missions.
+          Discover how our platform helps you navigate your financial journey through personalized experiences and smart recommendations.
         </motion.p>
       </div>
 

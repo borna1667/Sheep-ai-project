@@ -100,7 +100,7 @@ const CompletionPage: React.FC = () => {
           </div>
           
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Completed Missions</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Accomplishments</h2>
             
             <div className="space-y-3">
               <div className="flex items-center">

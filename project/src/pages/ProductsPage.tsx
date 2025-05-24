@@ -8,7 +8,7 @@ import { Search } from 'lucide-react';
 
 const ProductsPage: React.FC = () => {
   const navigate = useNavigate();
-  const { userProfile, completeMission } = useGame();
+  const { userProfile, markProductExplored } = useGame();
   
   useEffect(() => {
     if (!userProfile) {
@@ -20,9 +20,9 @@ const ProductsPage: React.FC = () => {
     return null;
   }
   
-  const handleCompleteMission = () => {
-    completeMission('explore-product');
-    // Go to product detail page
+  const handleMarkProductExplored = () => {
+    markProductExplored();
+    // Navigation handled automatically by context update
   };
 
   // Filter products based on user profile
@@ -100,7 +100,7 @@ const ProductsPage: React.FC = () => {
       
       <div className="mt-12 text-center">
         <button
-          onClick={handleCompleteMission}
+          onClick={handleMarkProductExplored}
           className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
         >
           Complete Product Exploration

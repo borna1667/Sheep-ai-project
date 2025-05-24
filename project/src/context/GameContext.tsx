@@ -1,21 +1,22 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { UserProfile, UserProgress, Badge, Mission } from '../types';
-import { badges as initialBadges, missions as initialMissions } from '../data/missions';
+import { UserProfile, UserProgress, Badge, RecommendedSection } from '../types';
+import { badges as initialBadges, recommendedSections } from '../data/recommendations';
 
 interface GameContextType {
   userProfile: UserProfile | null;
   setUserProfile: (profile: UserProfile) => void;
-  missions: Mission[];
+  recommendedSections: RecommendedSection[];
   badges: Badge[];
   progress: UserProgress;
-  completeMission: (missionId: string) => void;
+  markQuizCompleted: () => void;
+  markProductExplored: () => void;
+  markApplicationSubmitted: () => void;
   unlockBadge: (badgeId: string) => void;
   addPoints: (points: number) => void;
   resetProgress: () => void;
 }
 
-const defaultProgress: UserProgress = {
-  completedMissions: [],
+const initialProgress: UserProgress = {
   unlockedBadges: [],
   points: 0,
   level: 1,
@@ -27,10 +28,12 @@ const defaultProgress: UserProgress = {
 const GameContext = createContext<GameContextType>({
   userProfile: null,
   setUserProfile: () => {},
-  missions: [],
+  recommendedSections: [],
   badges: [],
-  progress: defaultProgress,
-  completeMission: () => {},
+  progress: initialProgress,
+  markQuizCompleted: () => {},
+  markProductExplored: () => {},
+  markApplicationSubmitted: () => {},
   unlockBadge: () => {},
   addPoints: () => {},
   resetProgress: () => {},
@@ -40,15 +43,22 @@ export const useGame = () => useContext(GameContext);
 
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [missions, setMissions] = useState<Mission[]>([...initialMissions]);
   const [badges, setBadges] = useState<Badge[]>([...initialBadges]);
-  const [progress, setProgress] = useState<UserProgress>(defaultProgress);
+  const [progress, setProgress] = useState<UserProgress>(initialProgress);
+
+  // Get recommended sections based on user profile
+  const getRecommendedSections = (): RecommendedSection[] => {
+    if (!userProfile) return [];
+    
+    return recommendedSections
+      .filter(section => section.forTypes.includes(userProfile.type))
+      .sort((a, b) => a.priority - b.priority);
+  };
 
   // Load progress from localStorage on initial render
   useEffect(() => {
     const savedProfile = localStorage.getItem('userProfile');
     const savedProgress = localStorage.getItem('userProgress');
-    const savedMissions = localStorage.getItem('missions');
     const savedBadges = localStorage.getItem('badges');
 
     if (savedProfile) {
@@ -57,10 +67,6 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     if (savedProgress) {
       setProgress(JSON.parse(savedProgress));
-    }
-
-    if (savedMissions) {
-      setMissions(JSON.parse(savedMissions));
     }
 
     if (savedBadges) {
@@ -75,43 +81,37 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
     
     localStorage.setItem('userProgress', JSON.stringify(progress));
-    localStorage.setItem('missions', JSON.stringify(missions));
     localStorage.setItem('badges', JSON.stringify(badges));
-  }, [userProfile, progress, missions, badges]);
+  }, [userProfile, progress, badges]);
 
-  const completeMission = (missionId: string) => {
-    // Update missions
-    const updatedMissions = missions.map(mission => 
-      mission.id === missionId ? { ...mission, isCompleted: true } : mission
-    );
-    
-    setMissions(updatedMissions);
-    
-    // Update progress
-    const mission = missions.find(m => m.id === missionId);
-    if (mission) {
-      const updatedProgress = {
-        ...progress,
-        completedMissions: [...progress.completedMissions, missionId],
-        points: progress.points + mission.points,
-      };
-      
-      // Update specific flags based on mission
-      if (missionId === 'complete-profile') {
-        updatedProgress.quizCompleted = true;
-      } else if (missionId === 'explore-product') {
-        updatedProgress.productExplored = true;
-      } else if (missionId === 'submit-application') {
-        updatedProgress.applicationSubmitted = true;
-      }
-      
-      setProgress(updatedProgress);
-      
-      // Unlock badge if available
-      if (mission.badgeId) {
-        unlockBadge(mission.badgeId);
-      }
-    }
+  const markQuizCompleted = () => {
+    const updatedProgress = {
+      ...progress,
+      quizCompleted: true,
+      points: progress.points + 100,
+    };
+    setProgress(updatedProgress);
+    unlockBadge('profile-master');
+  };
+
+  const markProductExplored = () => {
+    const updatedProgress = {
+      ...progress,
+      productExplored: true,
+      points: progress.points + 150,
+    };
+    setProgress(updatedProgress);
+    unlockBadge('product-explorer');
+  };
+
+  const markApplicationSubmitted = () => {
+    const updatedProgress = {
+      ...progress,
+      applicationSubmitted: true,
+      points: progress.points + 250,
+    };
+    setProgress(updatedProgress);
+    unlockBadge('application-pro');
   };
 
   const unlockBadge = (badgeId: string) => {
@@ -129,12 +129,11 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
     }
     
-    // Special case for journey badge
-    if (progress.completedMissions.length === initialMissions.length - 1 && badgeId === 'application-pro') {
-      // Unlock the journey badge when all missions are complete
+    // Special case for journey badge - unlock when all main activities are complete
+    if (progress.quizCompleted && progress.productExplored && progress.applicationSubmitted) {
       const journeyBadge = badges.find(b => b.id === 'financial-journey');
-      if (journeyBadge) {
-        unlockBadge('financial-journey');
+      if (journeyBadge && !journeyBadge.isUnlocked) {
+        setTimeout(() => unlockBadge('financial-journey'), 1000);
       }
     }
   };
@@ -152,13 +151,11 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const resetProgress = () => {
     setUserProfile(null);
-    setMissions([...initialMissions]);
     setBadges([...initialBadges]);
-    setProgress(defaultProgress);
+    setProgress(initialProgress);
     
     localStorage.removeItem('userProfile');
     localStorage.removeItem('userProgress');
-    localStorage.removeItem('missions');
     localStorage.removeItem('badges');
   };
 
@@ -167,10 +164,12 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         userProfile,
         setUserProfile,
-        missions,
+        recommendedSections: getRecommendedSections(),
         badges,
         progress,
-        completeMission,
+        markQuizCompleted,
+        markProductExplored,
+        markApplicationSubmitted,
         unlockBadge,
         addPoints,
         resetProgress,

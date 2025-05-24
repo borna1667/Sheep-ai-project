@@ -56,7 +56,7 @@ const LandingPage: React.FC = () => {
                   transition={{ duration: 0.5, delay: 0.1 }}
                   className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
                 >
-                  Discover your financial personality, complete missions, and find the perfect products for your unique needs. Start your journey today.
+                  Discover your financial personality, explore personalized recommendations, and find the perfect products for your unique needs. Start your journey today.
                 </motion.p>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}

@@ -21,7 +21,7 @@ interface AuthForm {
 
 const QuizPage: React.FC = () => {
   const navigate = useNavigate();
-  const { setUserProfile, completeMission } = useGame();
+  const { setUserProfile, markQuizCompleted } = useGame();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, QuizAnswer>>({});
   const [showResult, setShowResult] = useState(false);
@@ -169,7 +169,7 @@ const QuizPage: React.FC = () => {
     
     const result = calculateResult();
     setUserProfile(result);
-    completeMission('complete-profile');
+    markQuizCompleted();
     
     setIsAuthenticating(false);
     navigate('/dashboard');
