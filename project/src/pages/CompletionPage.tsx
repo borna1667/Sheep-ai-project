@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { useGame } from '../context/GameContext';
 import BadgeItem from '../components/BadgeItem';
-import { Award, Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 const CompletionPage: React.FC = () => {
   const navigate = useNavigate();
@@ -67,7 +68,9 @@ const CompletionPage: React.FC = () => {
         className="bg-white rounded-xl shadow-md overflow-hidden"
       >
         <div className="text-center p-8 bg-primary-600 text-white">
-          <Award className="mx-auto h-16 w-16" />
+          <div className="relative mx-auto h-16 w-16 rounded-full bg-white p-2 flex items-center justify-center">
+            <img src={logo} alt="FinancePath Logo" className="h-12 w-12 object-contain" />
+          </div>
           <h1 className="mt-4 text-3xl font-bold">Congratulations!</h1>
           <p className="mt-2 text-lg text-primary-100">
             You've completed your financial journey.

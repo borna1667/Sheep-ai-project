@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Award, TrendingUp, ShieldCheck } from 'lucide-react';
 import { useGame } from '../context/GameContext';
+import logo from '../assets/logo.png';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -84,11 +85,11 @@ const LandingPage: React.FC = () => {
             </main>
           </div>
         </div>
-        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex items-center justify-center bg-gray-50">
           <img
-            className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-            src="https://images.pexels.com/photos/6801642/pexels-photo-6801642.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt="Financial planning"
+            className="h-56 w-full object-contain sm:h-72 md:h-96 lg:w-full lg:h-full"
+            src={logo}
+            alt="FinancePath Logo"
           />
         </div>
       </div>

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ChevronRight, Check } from 'lucide-react';
 import { useGame } from '../context/GameContext';
 import { products } from '../data/products';
+import logo from '../assets/logo.png';
 
 const ProductDetailPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -65,11 +66,11 @@ const ProductDetailPage: React.FC = () => {
       
       <div className="bg-white rounded-xl shadow-md overflow-hidden">
         <div className="md:flex">
-          <div className="md:flex-shrink-0">
+          <div className="md:flex-shrink-0 flex items-center justify-center bg-gray-50">
             <img
-              className="h-48 w-full object-cover md:h-full md:w-64"
-              src={product.imageUrl}
-              alt={product.name}
+              className="h-48 w-full object-contain md:h-full md:w-64"
+              src={logo}
+              alt="FinancePath Logo"
             />
           </div>
           <div className="p-8">

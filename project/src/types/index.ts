@@ -29,7 +29,6 @@ export interface Product {
   description: string;
   forTypes: UserProfileType[];
   benefits: string[];
-  imageUrl: string;
   calculatorType?: 'cashback' | 'savings' | 'investment';
 }
 
@@ -48,7 +47,6 @@ export interface Badge {
   id: string;
   name: string;
   description: string;
-  imageUrl: string;
   isUnlocked: boolean;
 }
 

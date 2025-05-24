@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Check, ArrowRight } from 'lucide-react';
 import { Product } from '../types';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 interface ProductCardProps {
   product: Product;
@@ -28,11 +29,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isRecommended }) => 
         </div>
       )}
       
-      <div className="h-48 overflow-hidden">
+      <div className="h-48 overflow-hidden flex items-center justify-center bg-gray-50">
         <img
-          src={product.imageUrl}
-          alt={product.name}
-          className="w-full h-full object-cover transition-transform hover:scale-105"
+          src={logo}
+          alt="FinancePath Logo"
+          className="w-32 h-32 object-contain mx-auto"
         />
       </div>
       

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Badge } from '../types';
+import logo from '../assets/logo.png';
 
 interface BadgeItemProps {
   badge: Badge;
@@ -16,12 +17,12 @@ const BadgeItem: React.FC<BadgeItemProps> = ({ badge }) => {
       }`}
     >
       <motion.div 
-        className={`text-4xl mb-2 bg-gray-100 p-4 rounded-full ${
+        className={`mb-2 bg-gray-100 p-4 rounded-full ${
           badge.isUnlocked ? 'animate-badge-pulse' : ''
         }`}
         whileHover={badge.isUnlocked ? { scale: 1.1, rotate: 5 } : {}}
       >
-        {badge.imageUrl}
+        <img src={logo} alt="Badge" className="w-12 h-12 object-contain mx-auto" />
       </motion.div>
       <h3 className="font-medium text-sm text-gray-800">{badge.name}</h3>
       <p className="text-xs text-gray-500 text-center mt-1">{badge.description}</p>

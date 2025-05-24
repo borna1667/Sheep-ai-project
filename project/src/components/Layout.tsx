@@ -8,9 +8,9 @@ const Layout: React.FC = () => {
   const { userProfile } = useGame();
   
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50/30 flex flex-col">
       <Header />
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         <Outlet />
       </main>
       {userProfile && <Chatbot />}

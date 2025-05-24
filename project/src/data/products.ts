@@ -13,7 +13,6 @@ export const products: Product[] = [
       'No foreign transaction fees',
       'Purchase protection and extended warranty',
     ],
-    imageUrl: 'https://images.pexels.com/photos/4386325/pexels-photo-4386325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     calculatorType: 'cashback',
   },
   {
@@ -28,7 +27,6 @@ export const products: Product[] = [
       'FDIC insured up to $250,000',
       'Easy transfers between accounts',
     ],
-    imageUrl: 'https://images.pexels.com/photos/3943716/pexels-photo-3943716.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     calculatorType: 'savings',
   },
   {
@@ -43,7 +41,6 @@ export const products: Product[] = [
       'Tax-efficient investing',
       'Personalized financial advice',
     ],
-    imageUrl: 'https://images.pexels.com/photos/6801651/pexels-photo-6801651.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     calculatorType: 'investment',
   },
   {
@@ -58,7 +55,6 @@ export const products: Product[] = [
       'Budgeting and spending insights',
       'Fee-free ATM network',
     ],
-    imageUrl: 'https://images.pexels.com/photos/4482900/pexels-photo-4482900.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
   },
   {
     id: 'growth-fund',
@@ -72,7 +68,6 @@ export const products: Product[] = [
       'Automated contribution options',
       'Comprehensive performance reporting',
     ],
-    imageUrl: 'https://images.pexels.com/photos/7788009/pexels-photo-7788009.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     calculatorType: 'investment',
   },
 ];

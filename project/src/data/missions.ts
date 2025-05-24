@@ -5,28 +5,24 @@ export const badges: Badge[] = [
     id: 'profile-master',
     name: 'Profile Master',
     description: 'Completed your financial profile quiz',
-    imageUrl: '🧩',
     isUnlocked: false,
   },
   {
     id: 'product-explorer',
     name: 'Product Explorer',
     description: 'Discovered the perfect product for your needs',
-    imageUrl: '🔍',
     isUnlocked: false,
   },
   {
     id: 'application-pro',
     name: 'Application Pro',
     description: 'Successfully submitted your application',
-    imageUrl: '📝',
     isUnlocked: false,
   },
   {
     id: 'financial-journey',
     name: 'Financial Journey',
     description: 'Completed your entire financial onboarding journey',
-    imageUrl: '🏆',
     isUnlocked: false,
   },
 ];
