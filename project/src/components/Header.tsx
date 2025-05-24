@@ -30,10 +30,10 @@ const Header: React.FC = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
       scrolled 
         ? 'bg-white/80 backdrop-blur-md shadow-lg border-b border-white/20' 
-        : 'bg-gradient-to-r from-primary-50/90 via-secondary-50/90 to-accent-50/90 backdrop-blur-sm'
+        : 'bg-gradient-to-r from-primary-50/90 via-secondary-50/90 to-white/90 backdrop-blur-sm'
     }`}>
       {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 via-secondary-500/5 to-accent-500/5 animate-pulse"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 via-secondary-500/5 to-white/5 animate-pulse"></div>
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
@@ -43,17 +43,8 @@ const Header: React.FC = () => {
               onClick={() => navigate('/dashboard')} 
               className="flex items-center cursor-pointer transform transition-all duration-300 hover:scale-105"
             >
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-300 animate-pulse"></div>
-                <Award className="relative h-10 w-10 text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text" />
-              </div>
-              <div className="ml-3">
-                <span className="text-2xl font-bold bg-gradient-to-r from-primary-700 via-secondary-600 to-accent-600 bg-clip-text text-transparent">
-                  FinancePath
-                </span>
-                <div className="text-xs text-gray-500 font-medium tracking-wide">
-                  Your Journey to Success
-                </div>
+              <div className="h-10">
+                <img src="/src/assets/otpbanka-transparent.png" alt="Logo" className="h-full" />
               </div>
             </div>
           </div>
@@ -87,12 +78,12 @@ const Header: React.FC = () => {
 
               {/* Badges Count */}
               <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-accent-500 to-accent-600 rounded-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-                <div className="relative bg-white/80 backdrop-blur-sm border border-accent-200/50 px-4 py-2 rounded-2xl shadow-sm group-hover:shadow-md transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+                <div className="relative bg-white/80 backdrop-blur-sm border border-primary-200/50 px-4 py-2 rounded-2xl shadow-sm group-hover:shadow-md transition-all duration-300">
                   <div className="flex items-center space-x-2">
-                    <Trophy className="h-4 w-4 text-accent-600" />
-                    <span className="text-sm font-bold text-accent-700">{progress.unlockedBadges.length}</span>
-                    <span className="text-xs text-accent-500">badges</span>
+                    <Trophy className="h-4 w-4 text-primary-600" />
+                    <span className="text-sm font-bold text-primary-700">{progress.unlockedBadges.length}</span>
+                    <span className="text-xs text-primary-500">badges</span>
                   </div>
                 </div>
               </div>
@@ -150,10 +141,10 @@ const Header: React.FC = () => {
                   <div className="text-sm font-bold text-secondary-700">{progress.points}</div>
                   <div className="text-xs text-secondary-500">points</div>
                 </div>
-                <div className="bg-gradient-to-br from-accent-50 to-accent-100 p-3 rounded-xl text-center">
-                  <Trophy className="h-5 w-5 text-accent-600 mx-auto mb-1" />
-                  <div className="text-sm font-bold text-accent-700">{progress.unlockedBadges.length}</div>
-                  <div className="text-xs text-accent-500">badges</div>
+                <div className="bg-gradient-to-br from-primary-50 to-secondary-50 p-3 rounded-xl text-center">
+                  <Trophy className="h-5 w-5 text-primary-600 mx-auto mb-1" />
+                  <div className="text-sm font-bold text-primary-700">{progress.unlockedBadges.length}</div>
+                  <div className="text-xs text-primary-500">badges</div>
                 </div>
               </div>
 

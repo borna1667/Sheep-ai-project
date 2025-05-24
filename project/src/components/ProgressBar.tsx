@@ -37,7 +37,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep, totalSteps, labe
                   animate={{ 
                     scale: isActive ? 1 : 0.8, 
                     opacity: isActive ? 1 : 0.5,
-                    backgroundColor: isCurrent ? '#2563EB' : isActive ? '#3B82F6' : '#E5E7EB'
+                    backgroundColor: isCurrent ? '#006838' : isActive ? '#8DC63F' : '#E5E7EB'
                   }}
                   className={`w-6 h-6 rounded-full flex items-center justify-center ${
                     isCurrent ? 'ring-4 ring-primary-100' : ''

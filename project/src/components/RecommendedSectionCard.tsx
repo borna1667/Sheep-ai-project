@@ -32,7 +32,7 @@ const RecommendedSectionCard: React.FC<RecommendedSectionCardProps> = ({ section
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
               <Star className="w-5 h-5 text-white" />
             </div>
             <div className="ml-3">

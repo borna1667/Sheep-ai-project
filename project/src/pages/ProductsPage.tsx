@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useGame } from '../context/GameContext';
@@ -8,7 +8,8 @@ import { Search } from 'lucide-react';
 
 const ProductsPage: React.FC = () => {
   const navigate = useNavigate();
-  const { userProfile, markProductExplored } = useGame();
+  const { userProfile } = useGame();
+  const [searchTerm, setSearchTerm] = useState('');
   
   useEffect(() => {
     if (!userProfile) {
@@ -19,18 +20,20 @@ const ProductsPage: React.FC = () => {
   if (!userProfile) {
     return null;
   }
-  
-  const handleMarkProductExplored = () => {
-    markProductExplored();
-    // Navigation handled automatically by context update
-  };
+
+  // Filter products based on search term
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.benefits.some(benefit => benefit.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
 
   // Filter products based on user profile
-  const recommendedProducts = products.filter(product => 
+  const recommendedProducts = filteredProducts.filter(product => 
     product.forTypes.includes(userProfile.type)
   );
   
-  const otherProducts = products.filter(product => 
+  const otherProducts = filteredProducts.filter(product => 
     !product.forTypes.includes(userProfile.type)
   );
 
@@ -63,6 +66,8 @@ const ProductsPage: React.FC = () => {
             </div>
             <input
               type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
               placeholder="Search products"
             />
@@ -97,15 +102,6 @@ const ProductsPage: React.FC = () => {
           </div>
         </div>
       )}
-      
-      <div className="mt-12 text-center">
-        <button
-          onClick={handleMarkProductExplored}
-          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-        >
-          Complete Product Exploration
-        </button>
-      </div>
     </div>
   );
 };

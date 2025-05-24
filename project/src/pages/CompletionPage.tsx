@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { useGame } from '../context/GameContext';
 import BadgeItem from '../components/BadgeItem';
-import { Check, ArrowRight } from 'lucide-react';
-import logo from '../assets/logo.png';
+import { Check, Share2 } from 'lucide-react';
+import otpLogo from '../assets/otpbanka-transparent.png';
 
 const CompletionPage: React.FC = () => {
   const navigate = useNavigate();
@@ -17,25 +17,33 @@ const CompletionPage: React.FC = () => {
       return;
     }
     
-    // Run confetti when component mounts
-    const duration = 3 * 1000;
+    // Check if all badges are unlocked before showing completion
+    const unlockedCount = badges.filter(badge => badge.isUnlocked).length;
+    if (unlockedCount < 4) {
+      // Redirect back to dashboard if not all badges are unlocked
+      navigate('/dashboard');
+      return;
+    }
+    
+    // Run reduced confetti when component mounts - only if all badges are unlocked
+    const duration = 1.5 * 1000; // Reduced from 3 seconds to 1.5 seconds
     const end = Date.now() + duration;
     
     const runConfetti = () => {
       confetti({
-        particleCount: 2,
+        particleCount: 1, // Reduced from 2 to 1
         angle: 60,
-        spread: 55,
+        spread: 45, // Reduced spread
         origin: { x: 0 },
-        colors: ['#2563EB', '#8B5CF6', '#10B981'],
+        colors: ['#006838', '#8DC63F'],
       });
       
       confetti({
-        particleCount: 2,
+        particleCount: 1, // Reduced from 2 to 1
         angle: 120,
-        spread: 55,
+        spread: 45, // Reduced spread
         origin: { x: 1 },
-        colors: ['#2563EB', '#8B5CF6', '#10B981'],
+        colors: ['#006838', '#8DC63F'],
       });
       
       if (Date.now() < end) {
@@ -60,6 +68,40 @@ const CompletionPage: React.FC = () => {
   
   const unlockedBadges = badges.filter(badge => badge.isUnlocked);
   
+  const handleShareJourney = () => {
+    const shareText = `🎉 I just completed my financial journey with OTP Banka! 
+
+✨ Financial Personality: ${userProfile.type}
+🏆 Badges Earned: ${unlockedBadges.length}/4
+⭐ Points Scored: ${progress.points}
+📈 Level Reached: ${progress.level}
+
+Discover your own financial personality and get personalized banking recommendations!`;
+
+    if (navigator.share) {
+      // Use native sharing API if available
+      navigator.share({
+        title: 'My Financial Journey with OTP Banka',
+        text: shareText,
+        url: window.location.origin
+      }).catch(console.error);
+    } else {
+      // Fallback to clipboard
+      navigator.clipboard.writeText(shareText).then(() => {
+        alert('Journey summary copied to clipboard! Share it with your friends.');
+      }).catch(() => {
+        // Final fallback - create a downloadable text file
+        const element = document.createElement('a');
+        const file = new Blob([shareText], { type: 'text/plain' });
+        element.href = URL.createObjectURL(file);
+        element.download = 'my-financial-journey.txt';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      });
+    }
+  };
+  
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <motion.div
@@ -69,7 +111,7 @@ const CompletionPage: React.FC = () => {
       >
         <div className="text-center p-8 bg-primary-600 text-white">
           <div className="relative mx-auto h-16 w-16 rounded-full bg-white p-2 flex items-center justify-center">
-            <img src={logo} alt="FinancePath Logo" className="h-12 w-12 object-contain" />
+            <img src={otpLogo} alt="OTP Banka Logo" className="h-12 w-12 object-contain" />
           </div>
           <h1 className="mt-4 text-3xl font-bold">Congratulations!</h1>
           <p className="mt-2 text-lg text-primary-100">
@@ -159,11 +201,11 @@ const CompletionPage: React.FC = () => {
               </button>
               
               <button
-                onClick={() => window.open('https://example.com/share', '_blank')}
+                onClick={handleShareJourney}
                 className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
               >
+                <Share2 className="mr-2 h-4 w-4" />
                 Share Your Journey
-                <ArrowRight className="ml-1 h-4 w-4" />
               </button>
             </div>
           </div>

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ChevronRight, Check } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Check, CreditCard, PiggyBank, TrendingUp, Wallet, Building, Globe } from 'lucide-react';
 import { useGame } from '../context/GameContext';
 import { products } from '../data/products';
-import logo from '../assets/logo.png';
 
 const ProductDetailPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -14,6 +13,30 @@ const ProductDetailPage: React.FC = () => {
   const [calculationResult, setCalculationResult] = useState<number | null>(null);
   
   const product = products.find(p => p.id === productId);
+  
+  const getProductIcon = (productId: string) => {
+    switch (productId) {
+      case 'cashback-credit':
+      case 'premium-rewards':
+      case 'travel-rewards':
+        return <CreditCard className="w-24 h-24 text-primary-600" />;
+      case 'high-yield-savings':
+      case 'emergency-fund':
+      case 'cd-ladder':
+        return <PiggyBank className="w-24 h-24 text-secondary-600" />;
+      case 'investment-portfolio':
+      case 'growth-fund':
+        return <TrendingUp className="w-24 h-24 text-green-600" />;
+      case 'real-estate-fund':
+        return <Building className="w-24 h-24 text-blue-600" />;
+      case 'international-index':
+        return <Globe className="w-24 h-24 text-purple-600" />;
+      case 'balanced-account':
+        return <Wallet className="w-24 h-24 text-primary-600" />;
+      default:
+        return <CreditCard className="w-24 h-24 text-gray-600" />;
+    }
+  };
   
   useEffect(() => {
     if (!userProfile) {
@@ -66,12 +89,8 @@ const ProductDetailPage: React.FC = () => {
       
       <div className="bg-white rounded-xl shadow-md overflow-hidden">
         <div className="md:flex">
-          <div className="md:flex-shrink-0 flex items-center justify-center bg-gray-50">
-            <img
-              className="h-48 w-full object-contain md:h-full md:w-64"
-              src={logo}
-              alt="FinancePath Logo"
-            />
+          <div className="md:flex-shrink-0 flex items-center justify-center bg-gray-50 p-8">
+            {getProductIcon(product.id)}
           </div>
           <div className="p-8">
             <div className="flex items-center">
@@ -131,7 +150,7 @@ const ProductDetailPage: React.FC = () => {
             </label>
             <div className="mt-1 relative rounded-md shadow-sm">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span className="text-gray-500 sm:text-sm">$</span>
+                <span className="text-gray-500 sm:text-sm">€</span>
               </div>
               <input
                 type="number"
@@ -163,22 +182,22 @@ const ProductDetailPage: React.FC = () => {
               <div className="mt-2">
                 {product.calculatorType === 'cashback' && (
                   <p className="text-gray-600">
-                    With <span className="font-semibold">${amount}</span> in monthly spending,
-                    you would earn about <span className="font-semibold text-success-600">${calculationResult.toFixed(2)}</span> in cashback rewards each month.
+                    With <span className="font-semibold">€{amount}</span> in monthly spending,
+                    you would earn about <span className="font-semibold text-success-600">€{calculationResult.toFixed(2)}</span> in cashback rewards each month.
                   </p>
                 )}
                 
                 {product.calculatorType === 'savings' && (
                   <p className="text-gray-600">
-                    With a <span className="font-semibold">${amount}</span> deposit,
-                    you would earn approximately <span className="font-semibold text-success-600">${calculationResult.toFixed(2)}</span> in interest after one year.
+                    With a <span className="font-semibold">€{amount}</span> deposit,
+                    you would earn approximately <span className="font-semibold text-success-600">€{calculationResult.toFixed(2)}</span> in interest after one year.
                   </p>
                 )}
                 
                 {product.calculatorType === 'investment' && (
                   <p className="text-gray-600">
-                    With a <span className="font-semibold">${amount}</span> investment,
-                    you could potentially earn <span className="font-semibold text-success-600">${calculationResult.toFixed(2)}</span> in returns after one year.
+                    With a <span className="font-semibold">€{amount}</span> investment,
+                    you could potentially earn <span className="font-semibold text-success-600">€{calculationResult.toFixed(2)}</span> in returns after one year.
                   </p>
                 )}
               </div>

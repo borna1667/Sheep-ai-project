@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, ArrowRight, CreditCard, PiggyBank, TrendingUp, Wallet, Building, Globe } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 import { Product } from '../types';
 import { useNavigate } from 'react-router-dom';
+import otpLogo from '../assets/otpbanka-transparent.png';
 
 interface ProductCardProps {
   product: Product;
@@ -11,30 +12,6 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, isRecommended }) => {
   const navigate = useNavigate();
-
-  const getProductIcon = (productId: string) => {
-    switch (productId) {
-      case 'cashback-credit':
-      case 'premium-rewards':
-      case 'travel-rewards':
-        return <CreditCard className="w-16 h-16 text-primary-600" />;
-      case 'high-yield-savings':
-      case 'emergency-fund':
-      case 'cd-ladder':
-        return <PiggyBank className="w-16 h-16 text-secondary-600" />;
-      case 'investment-portfolio':
-      case 'growth-fund':
-        return <TrendingUp className="w-16 h-16 text-green-600" />;
-      case 'real-estate-fund':
-        return <Building className="w-16 h-16 text-blue-600" />;
-      case 'international-index':
-        return <Globe className="w-16 h-16 text-purple-600" />;
-      case 'balanced-account':
-        return <Wallet className="w-16 h-16 text-primary-600" />;
-      default:
-        return <CreditCard className="w-16 h-16 text-gray-600" />;
-    }
-  };
 
   return (
     <motion.div
@@ -53,7 +30,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isRecommended }) => 
       )}
       
       <div className="h-48 overflow-hidden flex items-center justify-center bg-gray-50">
-        {getProductIcon(product.id)}
+        <img
+          src={otpLogo}
+          alt="OTP Banka Logo"
+          className="w-32 h-32 object-contain mx-auto"
+        />
       </div>
       
       <div className="p-6">

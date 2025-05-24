@@ -74,6 +74,19 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
+  // Watch for completion of all activities and unlock journey badge
+  useEffect(() => {
+    if (progress.quizCompleted && progress.productExplored && progress.applicationSubmitted) {
+      const journeyBadge = badges.find(b => b.id === 'financial-journey');
+      if (journeyBadge && !journeyBadge.isUnlocked) {
+        console.log('All activities completed, unlocking journey badge!');
+        setTimeout(() => {
+          unlockBadge('financial-journey');
+        }, 1000);
+      }
+    }
+  }, [progress.quizCompleted, progress.productExplored, progress.applicationSubmitted, badges]);
+
   // Save progress to localStorage whenever it changes
   useEffect(() => {
     if (userProfile) {
@@ -121,20 +134,12 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     setBadges(updatedBadges);
     
-    // Update progress
+    // Update progress - ensure we don't add duplicate badges
     if (!progress.unlockedBadges.includes(badgeId)) {
-      setProgress({
-        ...progress,
-        unlockedBadges: [...progress.unlockedBadges, badgeId],
-      });
-    }
-    
-    // Special case for journey badge - unlock when all main activities are complete
-    if (progress.quizCompleted && progress.productExplored && progress.applicationSubmitted) {
-      const journeyBadge = badges.find(b => b.id === 'financial-journey');
-      if (journeyBadge && !journeyBadge.isUnlocked) {
-        setTimeout(() => unlockBadge('financial-journey'), 1000);
-      }
+      setProgress(prev => ({
+        ...prev,
+        unlockedBadges: [...prev.unlockedBadges, badgeId],
+      }));
     }
   };
 

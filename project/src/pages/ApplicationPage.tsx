@@ -5,7 +5,7 @@ import confetti from 'canvas-confetti';
 import { useGame } from '../context/GameContext';
 import ProgressBar from '../components/ProgressBar';
 import { applicationSteps } from '../data/application';
-import { ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Award } from 'lucide-react';
 
 const ApplicationPage: React.FC = () => {
   const navigate = useNavigate();
@@ -47,16 +47,18 @@ const ApplicationPage: React.FC = () => {
       // Final submission
       setIsComplete(true);
       
-      // Trigger confetti
+      // Trigger reduced confetti
       confetti({
-        particleCount: 150,
-        spread: 70,
+        particleCount: 50,
+        spread: 45,
         origin: { y: 0.6 },
+        colors: ['#006838', '#8DC63F'],
       });
       
-      // Complete application process
+      // Complete application process and award points
       setTimeout(() => {
         markApplicationSubmitted();
+        // Award points for completing application (this should be handled by the context)
       }, 1000);
     }
   };
@@ -70,7 +72,7 @@ const ApplicationPage: React.FC = () => {
   };
   
   const handleFinish = () => {
-    navigate('/completion');
+    navigate('/dashboard');
   };
   
   if (!userProfile) {
@@ -188,8 +190,10 @@ const ApplicationPage: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="text-center py-8"
           >
-            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-success-100">
-              <CheckCircle className="h-10 w-10 text-success-600" />
+            <div className="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-primary-100 to-secondary-100 mb-6">
+              <div className="flex items-center justify-center h-16 w-16 rounded-full bg-white shadow-lg">
+                <Award className="h-8 w-8 text-primary-600" />
+              </div>
             </div>
             <h2 className="mt-6 text-2xl font-semibold text-gray-900">Application Submitted!</h2>
             <p className="mt-2 text-gray-600">

@@ -51,7 +51,7 @@ export const products: Product[] = [
       'Industry-leading APY',
       'No minimum balance requirements',
       'No monthly maintenance fees',
-      'FDIC insured up to $250,000',
+      'Protected by Croatian deposit guarantee up to €100,000',
       'Easy transfers between accounts',
     ],
     calculatorType: 'savings',

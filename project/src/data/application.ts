@@ -23,7 +23,7 @@ export const applicationSteps: ApplicationStep[] = [
         id: 'phone',
         label: 'Phone Number',
         type: 'tel',
-        placeholder: '(123) 456-7890',
+        placeholder: '+385 xx xxx xxxx',
         required: true,
       },
       {
@@ -40,9 +40,9 @@ export const applicationSteps: ApplicationStep[] = [
     fields: [
       {
         id: 'income',
-        label: 'Annual Income',
+        label: 'Annual Income (EUR)',
         type: 'number',
-        placeholder: 'Enter your annual income',
+        placeholder: 'Enter your annual income in EUR',
         required: true,
       },
       {
@@ -68,9 +68,9 @@ export const applicationSteps: ApplicationStep[] = [
       },
       {
         id: 'expenses',
-        label: 'Monthly Expenses',
+        label: 'Monthly Expenses (EUR)',
         type: 'number',
-        placeholder: 'Estimate your monthly expenses',
+        placeholder: 'Estimate your monthly expenses in EUR',
         required: true,
       },
     ],
@@ -80,10 +80,10 @@ export const applicationSteps: ApplicationStep[] = [
     name: 'Verification',
     fields: [
       {
-        id: 'ssn',
-        label: 'Last 4 digits of SSN',
-        type: 'password',
-        placeholder: 'Enter last 4 digits',
+        id: 'oib',
+        label: 'OIB (Personal Identification Number)',
+        type: 'text',
+        placeholder: 'Enter your 11-digit OIB',
         required: true,
       },
       {

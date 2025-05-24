@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { GameProvider } from './context/GameContext';
 import Layout from './components/Layout';
@@ -18,8 +17,10 @@ function App() {
     <GameProvider>
       <Router>
         <Routes>
+          {/* Landing page doesn't use the Layout component to avoid showing the navbar */}
+          <Route path="/" element={<LandingPage />} />
+          
           <Route path="/" element={<Layout />}>
-            <Route index element={<LandingPage />} />
             <Route path="quiz" element={<QuizPage />} />
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="products" element={<ProductsPage />} />
